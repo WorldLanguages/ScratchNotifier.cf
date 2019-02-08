@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Scratch Notifier</title>
+  <meta name="Description" content="Get browser notifications when you get new messages on Scratch.">
+  <meta name="Author" content="World_Languages">
+  <meta charset="utf-8">
+  <script>
+    if(!localStorage.getItem("scratchNotifier") && !localStorage.getItem("username")) {
+    window.location.href = "/about.html";
+  }
+  </script>
+  <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
+  <script src="/minjs/sweetalert2.all.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="minjs/bootstrap.min.js"></script>
+  <script src="notifier.js"></script>
+  <script src="/minjs/odometer.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <script async src="/minjs/favico-0.3.10.min.js"></script>
+  <link href="css/odometer.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92535085-5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-92535085-5');
+  </script>
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
+  <script>
+    var OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+      OneSignal.init({
+        appId: "1c0a492d-2d86-4ae7-afc5-47e8b330ad6f",
+        autoRegister: false,
+        notifyButton: {
+          enable: false,
+        },
+        welcomeNotification: {
+          disable: true
+        },
+      });
+    });
+  </script>
+</head>
+
+<body onload="try{main();}catch(err){alert('Sorry, something went wrong:\n' + err);}" style="display: none;">
+  <div id="sn-title">
+    <div class="title-text"><img src="/images/logo.png" class="title-icons"> Scratch Notifier</div>
+  </div>
+  <div id="scratch-notifier" ondblclick="setTimeout(function(){if(doubleClick) {window.getSelection().removeAllRanges(); openScratch('/messages');} else doubleClick = true;}, 50);">
+    <div id="profile" ondblclick="doubleClick = false;">
+      <table class="profile-table">
+        <tbody>
+          <tr>
+            <td>
+              <img id="profile-pic" title="Open profile in new tab" alt="" onclick="window.open('https://scratch.mit.edu/users/' + document.getElementById('username').innerText);"></td>
+            <td><a id="username" title="Open profile in new tab" onclick="window.open('https://scratch.mit.edu/users/' + this.innerText);">username</a>
+              <hr class="username-border">
+              <a class="link-under-username" onclick="changeUsernameAlert();"><i class="material-icons">edit</i> Change username</a> | <a class="link-under-username" data-toggle="modal" data-target="#notifier-settings"><i class="material-icons">settings</i>
+                Settings</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="alts" ondblclick="doubleClick = false;">
+      <table id="alts-table">
+        <tbody>
+          <tr>
+            <td>
+              <div class="alt-row" data-id="0" data-not-last="">
+                <img class="alt-profile-pic" onclick="window.open('https://scratch.mit.edu/users/' + document.getElementsByClassName('alt')[this.parentNode.getAttribute('data-id')].innerText);">
+                <a class="alt" title="Open profile in new tab" onclick="window.open('https://scratch.mit.edu/users/'+this.innerText);">alt</a>
+                <span class="alt-settings">
+                  <i class="material-icons alt-settings-icons" title="Edit alt account username" onclick="editAltUsernameAlert(Number(this.parentElement.parentElement.getAttribute('data-id')));">edit</i>
+                  <i class="material-icons alt-settings-icons" title="Switch with main account" onclick="switchAlt(Number(this.parentElement.parentElement.getAttribute('data-id')));">compare_arrows</i>
+                  <i class="material-icons alt-settings-icons alt-bell" title="Enable/disable new message notifications for this account" onclick="altNotificationChange(Number(this.parentElement.parentElement.getAttribute('data-id')));"></i>
+                  <i class="material-icons alt-settings-icons" title="Delete alt" onclick="deleteAlt(Number(this.parentElement.parentElement.getAttribute('data-id')));">delete</i>
+                </span>
+                <span class="alt-msg-count odometer">0</span>
+              </div>
+              <div class="alt-row" data-id="1" data-not-last="">
+                <img class="alt-profile-pic" onclick="window.open('https://scratch.mit.edu/users/' + document.getElementsByClassName('alt')[this.parentNode.getAttribute('data-id')].innerText);">
+                <a class="alt" title="Open profile in new tab" onclick="window.open('https://scratch.mit.edu/users/'+this.innerText);">alt</a>
+                <span class="alt-settings">
+                  <i class="material-icons alt-settings-icons" title="Edit alt account username" onclick="editAltUsernameAlert(Number(this.parentElement.parentElement.getAttribute('data-id')));">edit</i>
+                  <i class="material-icons alt-settings-icons" title="Switch with main account" onclick="switchAlt(Number(this.parentElement.parentElement.getAttribute('data-id')));">compare_arrows</i>
+                  <i class="material-icons alt-settings-icons alt-bell" title="Enable/disable new message notifications for this account" onclick="altNotificationChange(Number(this.parentElement.parentElement.getAttribute('data-id')));"></i>
+                  <i class="material-icons alt-settings-icons" title="Delete alt" onclick="deleteAlt(Number(this.parentElement.parentElement.getAttribute('data-id')));">delete</i>
+                </span>
+                <span class="alt-msg-count odometer">0</span>
+              </div>
+              <div class="alt-row" data-id="2">
+                <img class="alt-profile-pic" onclick="window.open('https://scratch.mit.edu/users/' + document.getElementsByClassName('alt')[this.parentNode.getAttribute('data-id')].innerText);">
+                <a class="alt" title="Open profile in new tab" onclick="window.open('https://scratch.mit.edu/users/'+this.innerText);">alt</a>
+                <span class="alt-settings">
+                  <i class="material-icons alt-settings-icons" title="Edit alt account username" onclick="editAltUsernameAlert(Number(this.parentElement.parentElement.getAttribute('data-id')));">edit</i>
+                  <i class="material-icons alt-settings-icons" title="Switch with main account" onclick="switchAlt(Number(this.parentElement.parentElement.getAttribute('data-id')));">compare_arrows</i>
+                  <i class="material-icons alt-settings-icons alt-bell" title="Enable/disable new message notifications for this account" onclick="altNotificationChange(Number(this.parentElement.parentElement.getAttribute('data-id')));"></i>
+                  <i class="material-icons alt-settings-icons" title="Delete alt" onclick="deleteAlt(Number(this.parentElement.parentElement.getAttribute('data-id')));">delete</i>
+                </span>
+                <span class="alt-msg-count odometer">0</span>
+              </div>
+              <center><a id="add-alt" onclick="addAltAlert();"><i class="material-icons">add_circle</i> Add alt account</a></center>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="bell" ondblclick="doubleClick = false; window.getSelection().removeAllRanges();" title="Enable/disable all notifications (new messages and online friends)"><i class="material-icons" id="bell-icon" onclick="bellClickActions[this.innerText]();">notifications_on</i></div>
+    <div id="msg-count" class="odometer">0</div>
+    <div id="footer" ondblclick="doubleClick = false;">
+      <div id="footer-content">
+        <span id="footer-left">Made by <a class="footer-link" style="text-decoration: none;" title="Go to @World_Languages on Scratch" href="https://scratch.mit.edu/users/World_Languages/" target="_blank">World <img style="height:1rem;" src="https://cdn2.scratch.mit.edu/get_image/user/4648559_100x100.png">
+            Languages</a> with ❤️</span>
+        <span id="footer-right"><a class="footer-link" href="https://scratch.mit.edu/users/World_Languages/#comments" target="_blank">Send feedback</a></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="notifier-settings" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Notifier settings</h4>
+        </div>
+        <div class="modal-body">
+          <div class="setting">
+            Play sound on notifications:
+            <select id="sfx">
+              <option value="none">None</option>
+              <option value="system">System default</option>
+              <option value="Snapchat">Snapchat</option>
+              <option value="Chord">Chord</option>
+              <option value="Ding">Ding</option>
+              <option value="Ding but it's Mario">Ding but it's Mario</option>
+              <option value="Marimba">Marimba</option>
+              <option value="Oh oh">Oh oh</option>
+              <option value="Popcorn">Popcorn</option>
+            </select>
+          </div>
+          <br>
+          <div class="setting">
+            Automatically close notifications:
+            <select id="close-notifications">
+              <option value="0">Keep open as long as possible</option>
+              <option value="10">After 10 seconds</option>
+              <option value="30">After 30 seconds</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          Changes are saved automatically
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

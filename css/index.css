@@ -1,0 +1,214 @@
+/*
+Old color pallete:
+#FFCA3B (yellow)
+#F FAB1A (orange)
+#4 D97FF (blue)
+#D80000 (red)
+#077900 (green)
+
+New collor pallete:
+#F CAB10 (yellow/orange)
+#2 B9EB3 (light blue)
+#D80000 (red)
+#077900 (green)
+#17BEBB (lighter blue)
+
+Newer test pallete:
+#0F8BC0 (old darker Scratch blue. Scratch Notifier background. Username links color)
+#4 D97FF (new lighter Scratch blue. isOnline background)
+#F CAB10 (orange, from Scratch new message count)
+#D80000 (red)
+#077900 (green)
+Black, gray
+*/
+
+.material-icons {
+	font-size: 1rem;
+	vertical-align: middle;
+}
+
+
+html {
+	font-size: 2.5vh;
+}
+
+body {
+	margin: 0;
+	font-family: "Helvetica Neue", sans-serif;
+	font-size: 1rem;
+	background-color: #0F8BC0;
+	color: #000000;
+	overflow-y: hidden;
+}
+
+#sn-title {
+	color: black;
+	float: left;
+	width: 100%;
+	background-color: #FFAB1A;
+	padding: 1.5vh 0;
+	height: calc(8vh - 3vh);
+}
+
+.title-icons {
+	height: 2rem;
+	vertical-align:middle;
+}
+
+.title-text {
+	font-size: 2rem;
+	position: relative;
+	float: left;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#scratch-notifier {
+	float: left;
+	width: calc(100vw - 0vh); /*Padding in left and right*/
+	height: calc(92vh - 2vh); /*Padding in top and bottom*/
+	padding-top: 2vh;
+}
+
+#profile, #alts {
+	float: left;
+}
+
+#profile {
+	background-color: rgba(241,241,241,.8);
+	height: 11vh;
+	margin-left: 2vw;
+}
+
+.profile-table {
+	border-collapse: separate;
+	border-spacing: 0.2rem;
+	font-size: .7rem;
+}
+
+#profile-pic {
+	height: 4rem;
+	width: 4rem;
+	cursor: pointer;
+}
+
+#username {
+	font-size: 1.8rem;
+	color:#0F8BC0;
+	cursor:pointer;
+}
+
+.username-border {
+	border-top: none;
+	border-bottom: solid 0.2vh gray;
+}
+
+.link-under-username {
+	cursor:pointer;
+	text-decoration: underline;
+}
+
+#alts {
+	margin-left: 2.5vw;
+	background-color: rgba(241,241,241,.8);
+	max-height: 11vh;
+}
+
+#alts-table {
+	border-collapse:separate;
+	border-spacing:0.2rem;
+}
+
+.alt {
+	font-size: 1rem;
+	color:#0F8BC0;
+	cursor:pointer;
+}
+
+.alt-row[data-not-last] {
+	border-bottom: solid 0.2vh gray;
+	margin-bottom: .25rem;
+}
+
+.alt-row {
+	display: none;
+}
+
+.alt-profile-pic {
+	height: 0.8rem;
+	width: 0.8rem;
+	cursor: pointer;
+}
+
+.alt-msg-count {
+	color: #FFAB1A;
+	font-size: 1rem;
+	font-weight: 700;
+	margin-left: 3vw;
+	float: right;
+}
+
+.alt-settings-icons {
+	font-size: .9rem;
+	color: #000000;
+	cursor: pointer;
+}
+
+#add-alt {
+	cursor: pointer;
+	text-decoration: underline;
+	text-align: center;
+	font-size: .7rem;
+}
+
+#bell {
+	float: right;
+	background-color: rgba(241,241,241,.8);
+	height: 11vh;
+	margin-right: 2vw;
+}
+
+#bell-icon {
+	font-size: 4rem;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	cursor: pointer;
+}
+
+#msg-count {
+	color: #FFAB1A;
+	font-size: 12rem;
+	font-weight: 500;
+	position: absolute;
+	top: 50vh;
+	left: 50vw;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+}
+
+#footer {
+	position: absolute;
+	bottom: 0;
+	font-size: 1rem;
+	background-color: rgba(241,241,241,.8);
+	padding: 1vh;
+	height: calc(5vh - 2vh);
+	width: calc(100vw - 2vh);
+}
+
+.footer-link {
+	color: black;
+}
+
+#footer-content {
+	position: relative;
+top: 50%;
+transform: translateY(-50%);
+}
+
+#footer-right {
+	float: right;
+}
