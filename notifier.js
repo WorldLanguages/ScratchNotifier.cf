@@ -80,7 +80,7 @@ function checkForUndefinedKeys() {
   if(scratchNotifier.settings.sound === undefined) scratchNotifier.settings.sound = "system";
   if(scratchNotifier.overviewDone === undefined) {
     scratchNotifier.overviewDone = true;
-    //overview();
+    window.addEventListener("load", overview);
   }
   updateLocalStorage();
 }
@@ -95,7 +95,7 @@ function main() {
   if(!scratchNotifier.globalNotifications) document.getElementById("bell-icon").innerText = "notifications_off";
   setProfilePicAndUsername();
   parseAltAccounts();
-  document.getElementsByTagName("body")[0].style.display = "block";
+  document.body.style.display = "block";
   // Handle message counts & settings
   checkMainMessages();
   setInterval(checkMainMessages, 30000);
@@ -219,6 +219,57 @@ function settings() {
     scratchNotifier.settings.closeNotification = Number(newValue);
     updateLocalStorage();
   };
+}
+
+async function overview() {
+  await swal({
+    title: "Welcome to Scratch Notifier!",
+    text: "Let me teach you the basics.",
+    type: "info",
+    confirmButtonText: "Okay :D",
+    allowOutsideClick: false,
+  });
+  await swal({
+    title: "Double click anywhere in the page to open your Scratch messages.",
+    type: "info",
+    confirmButtonText: "Got it!",
+    allowOutsideClick: false,
+  });
+  await swal({
+    title: "Disable all Scratch Notifier notifications anytime by clicking the bell on the top right.",
+    type: "info",
+    confirmButtonText: "Gotcha!",
+    allowOutsideClick: false,
+  });
+  await swal({
+    title: "Change the username you're getting notifications from in the top left.",
+    text: "You can also access the settings from there.",
+    type: "info",
+    confirmButtonText: "Got it!",
+    allowOutsideClick: false,
+  });
+  await swal({
+    title: "Have secondary/alt accounts? Add them here!",
+    text: "Click the \"Add alt account\" button, and get notified when your alt accounts get new messages!",
+    type: "info",
+    confirmButtonText: "Gotcha!",
+    allowOutsideClick: false,
+  });
+  await swal({
+    title: "IMPORTANT: Make sure to keep the notifier open at all times!",
+    text: "Please remember to not close the notifier tab, or you'll stop receiving notifications!",
+    type: "warning",
+    confirmButtonText: "Got it!",
+    allowOutsideClick: false,
+  });
+  await swal({
+    title: "We're done - but we need you to do one last *IMPORTANT* step!",
+    text: "Please right click this tab and select \"Pin\". This will automatically open Scratch Notifier the next time you launch your browser, and will also help your browser know message notifications are important to you.",
+    confirmButtonText: "I pinned it! Let's go!",
+    allowOutsideClick: false,
+    imageUrl: "images/pintab.gif",
+    imageHeight: (screen.height/100)*33 // SweetAlert2 only accepts pixel values
+  });
 }
 
 // Alt accounts ↓
