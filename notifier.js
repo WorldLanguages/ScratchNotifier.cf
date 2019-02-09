@@ -1,6 +1,7 @@
 // Declare global variables and constants
 var noNotifSession = false;
 var doubleClick = true;
+var lastMainCheck = 0;
 var msgCount;
 var globalSessionTimeout;
 var openedTab;
@@ -98,6 +99,7 @@ function main() {
   // Handle message counts & settings
   checkMainMessages();
   setInterval(checkMainMessages, 30000);
+  // Note: if you change this ↑ interval, please also take a look at the first line on checkMainMessages()
   checkAltMessages();
   setInterval(checkAltMessages, 60000);
   settings();
@@ -105,7 +107,12 @@ function main() {
 
 // Main account messages ↓
 
-async function checkMainMessages() {
+async function checkMainMessages(ignoreLastMainCheck) {
+  // Avoid computer sleep causing many calls to this function at once, sending many notifications
+  // ignoreLastMainCheck is true only when an alt is being switched with main
+  if(!ignoreLastMainCheck && (new Date().getTime() - lastMainCheck) < 5000) return;
+  lastMainCheck = new Date().getTime();
+
   if(msgCount !== null) /* Constant*/ var oldMsgCount = msgCount;
   else oldMsgCount = 10**10; // Message count will be smaller than 10^10, so we won't notify the user at startup
   msgCount = await getMessageCount(scratchNotifier.mainUsername);
@@ -171,7 +178,7 @@ function changeMainUsername(username) {
   updateLocalStorage();
   setProfilePicAndUsername();
   msgCount = 10**10;
-  checkMainMessages();
+  checkMainMessages(true);
 }
 
 // Handle UI ↓
