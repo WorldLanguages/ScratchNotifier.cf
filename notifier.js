@@ -42,6 +42,18 @@ const bellClickActions = {
   }
 };
 
+// Handle freezes and discards
+document.addEventListener("freeze", () => {
+  navigator.serviceWorker.controller.postMessage("discarded");
+  scratchNotifier.freezeCount += 1;
+  updateLocalStorage();
+});
+if(document.wasDiscarded) {
+  scratchNotifier.discardCount += 1;
+  // Local storage will be updated later by another script
+}
+
+
 // By this point we are sure that the user either has v2 or v3 data in local storage
 // If there's v3 local storage...
 if(localStorage.getItem("scratchNotifier")) {
@@ -82,12 +94,10 @@ function checkForUndefinedKeys() {
     scratchNotifier.overviewDone = true;
     window.addEventListener("load", overview);
   }
+  if(scratchNotifier.freezeCount === undefined) scratchNotifier.freezeCount = 0;
+  if(scratchNotifier.discardCount === undefined) scratchNotifier.discardCount = 0;
   updateLocalStorage();
 }
-
-// Handle notification when tab is freezed/discarded
-if("serviceWorker" in navigator) navigator.serviceWorker.register('/OneSignalSDKWorker.js');
-document.addEventListener("freeze", () => navigator.serviceWorker.controller.postMessage("discarded"));
 
 // On body onload
 function main() {
@@ -103,6 +113,12 @@ function main() {
   checkAltMessages();
   setInterval(checkAltMessages, 60000);
   settings();
+  // OneSignal tags
+  OneSignal.push(function() {
+    OneSignal.sendTag("freezeCount", scratchNotifier.freezeCount);
+    OneSignal.sendTag("discardCount", scratchNotifier.discardCount);
+    OneSignal.sendTag("ram", navigator.deviceMemory); // RAM size - only works on Chrome
+  });
 }
 
 // Main account messages ↓
