@@ -77,7 +77,7 @@ body {
 
 #profile {
 	background-color: rgba(241,241,241,.8);
-	height: 11vh;
+	height: auto;
 	margin-left: 2vw;
 }
 
@@ -105,14 +105,17 @@ body {
 }
 
 .link-under-username {
-	cursor:pointer;
-	text-decoration: underline;
+	cursor: pointer;
+    padding: 5px;
+}
+
+.link-under-username:hover {
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 #alts {
 	margin-left: 2.5vw;
 	background-color: rgba(241,241,241,.8);
-	max-height: 11vh;
 }
 
 #alts-table {
@@ -157,9 +160,13 @@ body {
 
 #add-alt {
 	cursor: pointer;
-	text-decoration: underline;
 	text-align: center;
 	font-size: .7rem;
+    padding: 5px;
+}
+
+#add-alt:hover {
+  background-color: rgba(0, 0, 0, 0.15);
 }
 
 #bell {
@@ -201,12 +208,13 @@ body {
 
 .footer-link {
 	color: black;
+    text-decoration: none;
 }
 
 #footer-content {
 	position: relative;
-top: 50%;
-transform: translateY(-50%);
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #footer-right {
