@@ -370,7 +370,7 @@ async function addAltAlert() {
     const usernameValid = await getValidUsername(username);
     if(usernameValid) {
       // Add alt
-      scratchNotifier.altAccounts.push({"username": username, "notifications": false});
+      scratchNotifier.altAccounts.push({"username": usernameValid, "notifications": false});
       updateLocalStorage();
       parseAltAccounts();
     }
@@ -393,7 +393,7 @@ async function checkSingleAltMessages(i) {
   if(altAccountsMsgCounts[altUsername]) {
     const previousAltMsgCount = altAccountsMsgCounts[altUsername];
     altAccountsMsgCounts[altUsername] = msgCountAlt;
-    if(scratchNotifier.altAccounts[i].notifications && msgCountAlt > previousAltMsgCount) notification(`${username}: ${altMsgCount} message${s(altMsgCount)}`, "Click to close this notification", profilePic);
+    if(scratchNotifier.altAccounts[i].notifications && msgCountAlt > previousAltMsgCount) notification(`${username}: ${msgCountAlt} message${s(msgCountAlt)}`, "Click to close this notification", profilePic);
   } else altAccountsMsgCounts[altUsername] = msgCountAlt;
 }
 
