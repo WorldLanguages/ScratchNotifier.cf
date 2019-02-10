@@ -393,7 +393,7 @@ async function checkSingleAltMessages(i) {
   if(altAccountsMsgCounts[altUsername]) {
     const previousAltMsgCount = altAccountsMsgCounts[altUsername];
     altAccountsMsgCounts[altUsername] = msgCountAlt;
-    if(scratchNotifier.altAccounts[i].notifications && msgCountAlt > previousAltMsgCount) notification(`${username}: ${msgCountAlt} message${s(msgCountAlt)}`, "Click to close this notification", profilePic);
+    if(scratchNotifier.altAccounts[i].notifications && msgCountAlt > previousAltMsgCount) notification(`${altUsername}: ${msgCountAlt} message${s(msgCountAlt)}`, "Click to close this notification", document.getElementsByClassName("alt-profile-pic")[i].src);
   } else altAccountsMsgCounts[altUsername] = msgCountAlt;
 }
 
