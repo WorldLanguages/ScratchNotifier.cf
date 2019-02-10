@@ -13,12 +13,9 @@
   </script>
   <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
   <script src="/minjs/sweetalert2.all.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="minjs/bootstrap.min.js"></script>
   <script src="notifier.js"></script>
   <script src="/minjs/odometer.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="stylesheet" href="css/bootstrap.css">
   <script async src="/minjs/favico-0.3.10.min.js"></script>
   <link href="css/odometer.css" rel="stylesheet">
   <link rel="stylesheet" href="css/index.css">
@@ -61,7 +58,7 @@
               <img id="profile-pic" title="Open profile in new tab" alt="" onclick="window.open('https://scratch.mit.edu/users/' + document.getElementById('username').innerText);"></td>
             <td><a id="username" title="Open profile in new tab" onclick="window.open('https://scratch.mit.edu/users/' + this.innerText);">username</a>
               <hr class="username-border">
-              <a class="link-under-username" onclick="changeUsernameAlert();"><i class="material-icons">edit</i> Change username</a> | <a class="link-under-username" data-toggle="modal" data-target="#notifier-settings"><i class="material-icons">settings</i>
+              <a class="link-under-username" onclick="changeUsernameAlert();"><i class="material-icons">edit</i> Change username</a> | <a class="link-under-username" onclick="settings();"><i class="material-icons">settings</i>
                 Settings</a>
             </td>
           </tr>
@@ -123,14 +120,8 @@
     </div>
   </div>
 
-  <div class="modal fade" id="notifier-settings" role="dialog">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Notifier settings</h4>
-        </div>
-        <div class="modal-body">
+  <!-- This is simply the  HTML for the sweetalert settings popup. It is removed automatically on page load -->
+  <div id="notifier-settings" style="display: none;">
           <div class="setting">
             Play sound on notifications:
             <select id="sfx">
@@ -154,12 +145,8 @@
               <option value="30">After 30 seconds</option>
             </select>
           </div>
-        </div>
-        <div class="modal-footer">
+          <br>
           Changes are saved automatically
-        </div>
-      </div>
-    </div>
   </div>
 </body>
 

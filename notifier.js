@@ -112,7 +112,8 @@ function main() {
   // Note: if you change this ↑ interval, please also take a look at the first line on checkMainMessages()
   checkAltMessages();
   setInterval(checkAltMessages, 60000);
-  settings();
+  settingsHTML = document.getElementById("notifier-settings").innerHTML;
+  document.getElementById("notifier-settings").remove();
   // OneSignal tags
   OneSignal.push(function() {
     OneSignal.sendTag("freezeCount", scratchNotifier.freezeCount);
@@ -205,6 +206,13 @@ function setProfilePicAndUsername() {
 }
 
 function settings() {
+  // Add sweetalert
+  swal({
+    title: "Settings",
+    html: settingsHTML,
+    confirmButtonText: "Close"
+  });
+
   // Select correct option on sound effect dropdown
   for (var i = 0; i < document.getElementById("sfx").options.length; i++) {
     if(document.getElementById("sfx").options[i].value === scratchNotifier.settings.sound) {
