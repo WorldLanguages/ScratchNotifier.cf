@@ -42,6 +42,15 @@ const bellClickActions = {
     });
   }
 };
+const privacy = `
+Scratch Notifier uses the following services. They may collect data according to their Terms of Service and Privacy Policies.
+<br>Hosting services: GitHub (Pages), Cloudflare (free plan).
+<br>Other services: Scratch API, Google Analytics, OneSignal (free plan), Google font CDN.
+<br><br>Scratch Notifier also currently uses proxy services to interact with the Scratch API because of the temporal removal of the Access-Control-Allow-Origin HTTP header.
+<br>By default, the CORS proxy used is cors.io, ran by Dean Pierce.
+<br>However, sometimes that proxy cannot be used by some users because it's blocked by parental controls or similar software.
+In those scenarios, api.scratchnotifier.cf (ran by Scratcher DatOneLefty) will be used instead.
+`;
 
 // Handle freezes and discards
 document.addEventListener("freeze", () => {
@@ -120,6 +129,7 @@ function main() {
     OneSignal.sendTag("freezeCount", scratchNotifier.freezeCount);
     OneSignal.sendTag("discardCount", scratchNotifier.discardCount);
     OneSignal.sendTag("ram", navigator.deviceMemory); // RAM size - only works on Chrome
+    OneSignal.sendTag("corsIoWorks", "1");
   });
 }
 
@@ -465,6 +475,9 @@ async function requestAPI(endpoint) {
     } catch(err) {
       if(corsIoWorksOnStart) {
         corsIoWorks = false;
+        OneSignal.push(function() {
+          OneSignal.sendTag("corsIoWorks", "0");
+        });
         resolve(await requestAPI(endpoint));
       }
     }

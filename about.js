@@ -30,7 +30,7 @@ async function askForUsername(error) {
     text: "You'll be able to change this later :)",
     input: "text",
     inputPlaceholder: "griffpatch",
-    type: error === false ? "" : "error"
+    type: !error ? "" : "error"
   });
   const username = callback.value;
   if(!username) return;
@@ -48,24 +48,26 @@ function getValidUsername(username) {
   });
 }
 
+corsIoWorks = true;
 async function requestAPI(endpoint) {
+  const corsIoWorksOnStart = corsIoWorks;
   return new Promise(async resolve => {
     try {
-      if(corsIoWorks) var req = await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`);
-      else var req = await fetch(`https://api.scratchnotifier.cf/scratch/${endpoint}`);
+      const req = corsIoWorks ? await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`) : await fetch(`https://api.scratchnotifier.cf/scratch/${endpoint}`);
       const res = await req.json();
       resolve(res);
     } catch(err) {
-      console.log(err);
-      if(corsIoWorks) {
+      if(corsIoWorksOnStart) {
         corsIoWorks = false;
+        OneSignal.push(function() {
+          OneSignal.sendTag("corsIoWorks", "0");
+        });
         resolve(await requestAPI(endpoint));
       }
     }
   });
 }
 
-corsIoWorks = true;
 function setUsername(username) {
   var scratchNotifier = {};
   scratchNotifier.mainUsername = username;

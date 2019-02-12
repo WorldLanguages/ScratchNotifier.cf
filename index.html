@@ -12,11 +12,11 @@
   }
   </script>
   <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
-  <script src="/minjs/sweetalert2.all.min.js"></script>
-  <script src="notifier.js"></script>
-  <script src="/minjs/odometer.min.js"></script>
+  <script src="minjs/sweetalert2.all.min.js"></script>
+  <script src="index.js"></script>
+  <script src="minjs/odometer.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script async src="/minjs/favico-0.3.10.min.js"></script>
+  <script async src="minjs/favico-0.3.10.min.js"></script>
   <link href="css/odometer.css" rel="stylesheet">
   <link rel="stylesheet" href="css/index.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92535085-5"></script>
@@ -115,7 +115,7 @@
       <div id="footer-content">
         <span id="footer-left">Made by <a class="footer-link" href="https://scratch.mit.edu/users/World_Languages/" target="_blank">World <img style="height:1rem;" src="https://cdn2.scratch.mit.edu/get_image/user/4648559_100x100.png">
             Languages</a> with ❤️</span>
-        <span id="footer-right"><a class="footer-link" href="https://github.com/WorldLanguages/ScratchNotifier" target="_blank">GitHub repo</a> | <a class="footer-link" href="https://scratch.mit.edu/users/World_Languages/#comments" target="_blank">Send feedback</a></span>
+        <span id="footer-right"><a class="footer-link" onclick="swal({title: 'Privacy', html: privacy, confirmButtonText: 'Close'})">Privacy</a> | <a class="footer-link" href="https://github.com/WorldLanguages/ScratchNotifier" target="_blank">GitHub repo</a> | <a class="footer-link" href="https://scratch.mit.edu/users/World_Languages/#comments" target="_blank">Send feedback</a></span>
       </div>
     </div>
   </div>
