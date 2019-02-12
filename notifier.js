@@ -411,7 +411,7 @@ async function checkSingleAltMessages(i) {
 function getMessageCount(username) {
   return new Promise(async resolve => {
     const res = await requestAPI(`users/${username}/messages/count`);
-    if(res.status === 200) resolve(res.count);
+    resolve(res.count);
   });
 }
 
