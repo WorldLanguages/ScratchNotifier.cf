@@ -456,15 +456,14 @@ function getValidUsername(username) {
 }
 
 async function requestAPI(endpoint) {
+  const corsIoWorksOnStart = corsIoWorks;
   return new Promise(async resolve => {
     try {
-      if(corsIoWorks) var req = await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`);
-      else var req = await fetch(`https://api.scratchnotifier.cf/scratch/${endpoint}`);
+      const req = corsIoWorks ? await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`) : await fetch(`https://api.scratchnotifier.cf/scratch/${endpoint}`);
       const res = await req.json();
       resolve(res);
     } catch(err) {
-      console.log(err);
-      if(corsIoWorks) {
+      if(corsIoWorksOnStart) {
         corsIoWorks = false;
         resolve(await requestAPI(endpoint));
       }
