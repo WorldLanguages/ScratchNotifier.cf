@@ -6,6 +6,7 @@ var msgCount;
 var globalSessionTimeout;
 var openedTab;
 var altAccountsMsgCounts = {};
+var corsIoWorks = true;
 const bellClickActions = {
   "notifications_on": () => {
     globalSessionTimeout = setTimeout(() => {
@@ -409,9 +410,8 @@ async function checkSingleAltMessages(i) {
 
 function getMessageCount(username) {
   return new Promise(async resolve => {
-    const req = await fetch(`https://cors.io/?https://api.scratch.mit.edu/users/${username}/messages/count?${Math.floor(Date.now())}`);
-    const res = await req.json();
-    resolve(res.count);
+    const res = await requestAPI(`users/${username}/messages/count`);
+    if(res.status === 200) resolve(res.count);
   });
 }
 
@@ -441,8 +441,7 @@ function notification(title, body, icon, onClickDo) {
 
 async function loadProfilePicture(username, imageElement) {
   imageElement.style.visibility = "hidden";
-  const req = await fetch(`https://cors.io/?https://api.scratch.mit.edu/users/${username}`);
-  const res = await req.json();
+  const res = await requestAPI(`users/${username}`);
   imageElement.src = `https://cdn2.scratch.mit.edu/get_image/user/${res.id}_256x256.png`;
   imageElement.style.visibility = "visible";
 }
@@ -450,9 +449,26 @@ async function loadProfilePicture(username, imageElement) {
 function getValidUsername(username) {
   if(username[0] === "@") /* Constant */ var username = username.substring(1,username.length);
   return new Promise(async resolve => {
-    const req = await fetch(`https://cors.io/?https://api.scratch.mit.edu/users/${username}`);
-    if(req.status === 200) resolve((await req.json()).username);
+    const res = await requestAPI(`users/${username}`);
+    if(!res.code) resolve(res.username);
     else resolve(false);
+  });
+}
+
+async function requestAPI(endpoint) {
+  return new Promise(async resolve => {
+    try {
+      if(corsIoWorks) var req = await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`);
+      else var req = await fetch(`https://api.scratchnotifier.cf/scratch/${endpoint}`);
+      const res = await req.json();
+      resolve(res);
+    } catch(err) {
+      console.log(err);
+      if(corsIoWorks) {
+        corsIoWorks = false;
+        resolve(await requestAPI(endpoint));
+      }
+    }
   });
 }
 
