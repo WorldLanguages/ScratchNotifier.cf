@@ -392,6 +392,7 @@ async function addAltAlert() {
       scratchNotifier.altAccounts.push({"username": usernameValid, "notifications": false});
       updateLocalStorage();
       parseAltAccounts();
+      checkAltMessages();
     }
     else
     toast({
