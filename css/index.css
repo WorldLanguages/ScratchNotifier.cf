@@ -13,6 +13,8 @@ body {
 	font-family: "Helvetica Neue", sans-serif;
 	font-size: 1rem;
 	background-color: #0F8BC0;
+	background-size: cover;
+	background-position: center;
 	color: #000000;
 	overflow-y: hidden;
 }

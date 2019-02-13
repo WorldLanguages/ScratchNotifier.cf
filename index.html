@@ -120,8 +120,8 @@
     </div>
   </div>
 
-  <!-- This is simply the  HTML for the sweetalert settings popup. It is removed automatically on page load -->
   <div id="notifier-settings" style="display: none;">
+    <!-- This is simply the  HTML for the sweetalert settings popup. It is removed automatically on page load -->
           <div class="setting">
             Play sound on notifications:
             <select id="sfx">
@@ -144,6 +144,16 @@
               <option value="10">After 10 seconds</option>
               <option value="30">After 30 seconds</option>
             </select>
+          </div>
+          <br>
+          <div class="setting">
+            Background:
+            <select id="background-setting">
+              <option value="none">None (solid blue)</option>
+              <option value="random">Random HD background</option>
+              <option value="custom">Custom uploaded background</option>
+            </select>
+            <input id="bg-upload" type="file" accept="image/*" onchange="bgUploadOnChange()" style="display: none;">
           </div>
           <br>
           Changes are saved automatically

@@ -42,6 +42,16 @@ const bellClickActions = {
     });
   }
 };
+const bgUploadOnChange = () => {
+  const getBase64Image = function getBase64Image(img) {var canvas=document.createElement("canvas");canvas.width=img.width;canvas.height=img.height;var ctx=canvas.getContext("2d");ctx.drawImage(img,0,0);var dataURL=canvas.toDataURL("image/png");return dataURL;}
+  const uploadedImage = document.createElement("img");
+  const imageReader = new FileReader();
+  imageReader.readAsDataURL(document.getElementById("bg-upload").files[0]);
+  imageReader.onload = e => {
+    localStorage.setItem("customBg",  e.target.result);
+    setBackground(true);
+  }
+}
 const privacy = `
 Scratch Notifier uses the following services. They may collect data according to their Terms of Service and Privacy Policies.
 <br>Hosting services: GitHub (Pages), Cloudflare (free plan).
@@ -100,6 +110,7 @@ function checkForUndefinedKeys() {
   if(scratchNotifier.settings === undefined) scratchNotifier.settings = {};
   if(scratchNotifier.settings.closeNotification === undefined) scratchNotifier.settings.closeNotification = 0;
   if(scratchNotifier.settings.sound === undefined) scratchNotifier.settings.sound = "system";
+  if(scratchNotifier.settings.background === undefined) scratchNotifier.settings.background = "none";
   if(scratchNotifier.overviewDone === undefined) {
     scratchNotifier.overviewDone = true;
     window.addEventListener("load", overview);
@@ -115,6 +126,7 @@ function main() {
   if(!scratchNotifier.globalNotifications) document.getElementById("bell-icon").innerText = "notifications_off";
   setProfilePicAndUsername();
   parseAltAccounts();
+  setBackground();
   document.body.style.display = "block";
   // Handle message counts & settings
   checkMainMessages();
@@ -131,6 +143,34 @@ function main() {
     OneSignal.sendTag("ram", navigator.deviceMemory); // RAM size - only works on Chrome
     OneSignal.sendTag("corsIoWorks", "1");
   });
+}
+
+function setBackground(calledFromSettings) {
+  if(scratchNotifier.settings.background === "none") document.body.style.backgroundImage = "";
+  if(scratchNotifier.settings.background === "random") {
+    toast({
+      type: "info",
+      text: "Loading background...",
+      timer: null
+    });
+    const bgImg = new Image();
+    bgImg.src = 'https://picsum.photos/'+ screen.width +'/' + screen.height + '/?random';
+    bgImg.onload = () => {
+      document.body.style.backgroundImage = `url(${bgImg.src})`;
+      document.getElementById("scratch-notifier").style.backgroundColor = "rgba(241,241,241,0.3)";
+      swal.close();
+      if(calledFromSettings) settings();
+    }
+  }
+  if(scratchNotifier.settings.background === "custom") {
+    if(!localStorage.getItem("customBg")) {
+      document.body.style.backgroundImage = "";
+      return;
+    }
+    const bgImg = localStorage.getItem("customBg");
+    document.body.style.backgroundImage = `url(${bgImg})`;
+    document.getElementById("scratch-notifier").style.backgroundColor = "rgba(241,241,241,0.3)";
+  }
 }
 
 // Main account messages ↓
@@ -225,7 +265,7 @@ function settings() {
   });
 
   // Select correct option on sound effect dropdown
-  for (var i = 0; i < document.getElementById("sfx").options.length; i++) {
+  for (var i in document.getElementById("sfx").options) {
     if(document.getElementById("sfx").options[i].value === scratchNotifier.settings.sound) {
       document.getElementById("sfx").selectedIndex = i;
       break;
@@ -233,7 +273,7 @@ function settings() {
   }
   // Handle changes on sound effect dropdown
   document.getElementById("sfx").onchange = () => {
-    const newValue = document.getElementById("sfx").options[document.getElementById("sfx").selectedIndex].value;
+    const newValue = document.getElementById("sfx").value;
     scratchNotifier.settings.sound = newValue;
     updateLocalStorage();
     if(newValue !== "none" && newValue !== "system") {
@@ -242,17 +282,36 @@ function settings() {
   };
 
   // Select correct option on close notification timeout
-  for (var i = 0; i < document.getElementById("close-notifications").options.length; i++) {
+  for (var i in document.getElementById("close-notifications").options) {
     if(document.getElementById("close-notifications").options[i].value === String(scratchNotifier.settings.closeNotification)) {
       document.getElementById("close-notifications").selectedIndex = i;
       break;
     }
   }
-  // Handle changes on close notification timeout
-  document.getElementById("close-notifications").onchange = () => {
-    const newValue = document.getElementById("close-notifications").options[document.getElementById("close-notifications").selectedIndex].value;
+
+  // Handle changes on background setting
+  document.getElementById("background-setting").onchange = () => {
+    const newValue = document.getElementById("background-setting").value;
     scratchNotifier.settings.closeNotification = Number(newValue);
     updateLocalStorage();
+  };
+
+  // Select correct option on background setting
+  for (var i in document.getElementById("background-setting").options) {
+    if(document.getElementById("background-setting").options[i].value === scratchNotifier.settings.background) {
+      document.getElementById("background-setting").selectedIndex = i;
+      break;
+    }
+  }
+  if(scratchNotifier.settings.background === "custom") document.getElementById("bg-upload").style.display = "inline-block";
+  // Handle changes on close notification timeout
+  document.getElementById("background-setting").onchange = () => {
+    document.getElementById("bg-upload").style.display = "none";
+    const newValue = document.getElementById("background-setting").value;
+    scratchNotifier.settings.background = newValue;
+    updateLocalStorage();
+    setBackground(true);
+    if(newValue === "custom") document.getElementById("bg-upload").style.display = "inline-block";
   };
 }
 
