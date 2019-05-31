@@ -378,7 +378,7 @@ function parseAltAccounts() {
   }
   // Parse and show correct settings
   for (var i = 0; i < scratchNotifier.altAccounts.length; i++) {
-    if(scratchNotifier.altAccounts[i].username !== document.getElementsByClassName("alt")[i].innerText) loadProfilePicture(scratchNotifier.altAccounts[i].username, document.getElementsByClassName("alt-profile-pic")[i])
+    if(document.getElementsByClassName("alt")[i] && (scratchNotifier.altAccounts[i].username !== document.getElementsByClassName("alt")[i].innerText)) loadProfilePicture(scratchNotifier.altAccounts[i].username, document.getElementsByClassName("alt-profile-pic")[i])
     document.getElementsByClassName("alt")[i].innerText = scratchNotifier.altAccounts[i].username;
     const altBell = document.getElementsByClassName("alt-row")[i].getElementsByClassName("alt-bell")[0];
     if(scratchNotifier.altAccounts[i].notifications) altBell.innerText = "notifications_on"
