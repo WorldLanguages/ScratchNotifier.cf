@@ -53,7 +53,7 @@ async function requestAPI(endpoint) {
   const corsIoWorksOnStart = corsIoWorks;
   return new Promise(async resolve => {
     try {
-      const req = corsIoWorks ? await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`) : await fetch(`https://api.scratchnotifier.cf/scratch/${endpoint}`);
+      const req = /*corsIoWorks ? await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`) :*/ await fetch(`https://api.scratchstats.com/worker/${endpoint}`);
       const res = await req.json();
       resolve(res);
     } catch(err) {
@@ -62,7 +62,7 @@ async function requestAPI(endpoint) {
         OneSignal.push(function() {
           OneSignal.sendTag("corsIoWorks", "0");
         });
-        resolve(await requestAPI(endpoint));
+        //resolve(await requestAPI(endpoint));
       }
     }
   });
