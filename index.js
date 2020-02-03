@@ -130,10 +130,10 @@ function main() {
   document.body.style.display = "block";
   // Handle message counts & settings
   checkMainMessages();
-  setInterval(checkMainMessages, 30000);
+  setInterval(checkMainMessages, 60000);
   // Note: if you change this ↑ interval, please also take a look at the first line on checkMainMessages()
   checkAltMessages();
-  setInterval(checkAltMessages, 60000);
+  setInterval(checkAltMessages, 180000);
   settingsHTML = document.getElementById("notifier-settings").innerHTML;
   document.getElementById("notifier-settings").remove();
   // OneSignal tags
