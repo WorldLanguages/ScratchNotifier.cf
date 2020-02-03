@@ -539,7 +539,7 @@ async function requestAPI(endpoint) {
         OneSignal.push(function() {
           OneSignal.sendTag("corsIoWorks", "0");
         });
-        resolve(await requestAPI(endpoint));
+        //resolve(await requestAPI(endpoint));
       }
     }
   });
