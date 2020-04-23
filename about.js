@@ -48,23 +48,15 @@ function getValidUsername(username) {
   });
 }
 
-corsIoWorks = true;
 async function requestAPI(endpoint) {
-  const corsIoWorksOnStart = corsIoWorks;
   return new Promise(async resolve => {
-    try {
-      const req = /*corsIoWorks ? await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`) :*/ await fetch(`https://notifier.worldxlanguages.workers.dev/${endpoint}`);
+      //const req = /*corsIoWorks ? await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`) :*/ 
+      let url;
+      if(endpoint.startsWith("msgcount")) url = `https://scratchproxy.hampton.pw/notifications/v1/${endpoint.slice(9)}`;
+      else url = `https://notifier.worldxlanguages.workers.dev/${endpoint}`;
+      const req = await fetch(url);
       const res = await req.json();
       resolve(res);
-    } catch(err) {
-      if(corsIoWorksOnStart) {
-        corsIoWorks = false;
-        OneSignal.push(function() {
-          OneSignal.sendTag("corsIoWorks", "0");
-        });
-        //resolve(await requestAPI(endpoint));
-      }
-    }
   });
 }
 
