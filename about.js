@@ -52,7 +52,7 @@ async function requestAPI(endpoint) {
   return new Promise(async resolve => {
       //const req = /*corsIoWorks ? await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`) :*/ 
       let url;
-      if(endpoint.startsWith("msgcount")) url = `https://fluffyscratch.hampton.pw/notifications/v1/${endpoint.slice(9)}`;
+      if(endpoint.startsWith("msgcount")) url = `https://api.scratchnotifier.cf/notifications/v1/${endpoint.slice(9)}`;
       else url = `https://notifier.worldxlanguages.workers.dev/${endpoint}`;
       const req = await fetch(url);
       const res = await req.json();
