@@ -292,9 +292,9 @@ function settings() {
     }
   }
 
-  // Handle changes on background setting
-  document.getElementById("background-setting").onchange = () => {
-    const newValue = document.getElementById("background-setting").value;
+  // Handle changes on notification time setting
+  document.getElementById("close-notifications").onchange = () => {
+    const newValue = document.getElementById("close-notifications").value;
     scratchNotifier.settings.closeNotification = Number(newValue);
     updateLocalStorage();
   };
