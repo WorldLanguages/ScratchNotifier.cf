@@ -249,6 +249,7 @@ function changeMainUsername(username) {
   setProfilePicAndUsername();
   msgCount = 10**10;
   checkMainMessages(true);
+  setTimeout(checkMainMessages, 1500);
 }
 
 // Handle UI ↓
@@ -394,6 +395,7 @@ function editAltUsernameTo(i, username){
   updateLocalStorage();
   parseAltAccounts();
   checkAltMessages();
+  setTimeout(checkAltMessages, 3000);
   toast({
     type: "success",
     title: "Changed username succesfully."
@@ -454,6 +456,7 @@ async function addAltAlert() {
       updateLocalStorage();
       parseAltAccounts();
       checkAltMessages();
+      setTimeout(checkAltMessages, 3000);
     }
     else
     toast({
