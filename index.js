@@ -130,10 +130,12 @@ function main() {
   document.body.style.display = "block";
   // Handle message counts & settings
   checkMainMessages();
-  setInterval(checkMainMessages, 20000);
+  setTimeout(checkMainMessages, 1500);
+  setInterval(checkMainMessages, 5000);
   // Note: if you change this ↑ interval, please also take a look at the first line on checkMainMessages()
   checkAltMessages();
-  setInterval(checkAltMessages, 60000);
+  setTimeout(checkAltMessages, 3000);
+  setInterval(checkAltMessages, 15000);
   settingsHTML = document.getElementById("notifier-settings").innerHTML;
   document.getElementById("notifier-settings").remove();
   // OneSignal tags
@@ -184,7 +186,7 @@ async function checkMainMessages(ignoreLastMainCheck) {
   if(msgCount !== null) /* Constant*/ var oldMsgCount = msgCount;
   else oldMsgCount = 10**10; // Message count will be smaller than 10^10, so we won't notify the user at startup
   msgCount = await getMessageCount(scratchNotifier.mainUsername);
-  if(oldMsgCount !== msgCount) {
+  if(msgCount !== null && oldMsgCount !== msgCount) {
     setFaviconAndTitle(true);
     document.getElementById("msg-count").innerText = msgCount;
     if(scratchNotifier.globalNotifications && !noNotifSession && msgCount > oldMsgCount) notification(`${msgCount} unread message${s(msgCount)}`, "Click to open messages", "/images/logo.png", () => openScratch('/messages'));
@@ -468,6 +470,7 @@ function checkAltMessages() {
 async function checkSingleAltMessages(i) {
   const altUsername = scratchNotifier.altAccounts[i].username;
   const msgCountAlt = await getMessageCount(altUsername);
+  if(msgCountAlt === null) return;
   if(document.getElementsByClassName("alt")[i].innerText === altUsername) document.getElementsByClassName("alt-msg-count")[i].innerText = msgCountAlt;
   if(altAccountsMsgCounts[altUsername]) {
     const previousAltMsgCount = altAccountsMsgCounts[altUsername];
@@ -482,7 +485,7 @@ function getMessageCount(username) {
   return new Promise(async resolve => {
     // const res = await requestAPI(`users/${username}/messages/count`);
     const res = await requestAPI(`msgcount/${username}`);
-    resolve(res.count);
+    resolve(res.count === -1 ? null : res.count);
   });
 }
 
@@ -530,7 +533,7 @@ async function requestAPI(endpoint) {
   return new Promise(async resolve => {
       //const req = /*corsIoWorks ? await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`) :*/ 
       let url;
-      if(endpoint.startsWith("msgcount")) url = `https://api.scratchnotifier.cf/notifications/v1/${endpoint.slice(9)}?avoidcache=${Date.now()}`;
+      if(endpoint.startsWith("msgcount")) url = `https://api.scratchnotifier.cf/notifications/v2/${endpoint.slice(9)}?avoidcache=${Date.now()}`;
       else url = `https://notifier.worldxlanguages.workers.dev/${endpoint}`;
       const req = await fetch(url);
       const res = await req.json();
