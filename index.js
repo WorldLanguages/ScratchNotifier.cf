@@ -205,14 +205,14 @@ function setFaviconAndTitle(countChanged) {
       favicon.badge(msgCount);
     }
     // Change title
-    if(msgCount === 0) document.title = "Scratch Notifier";
+    if(msgCount == 0) document.title = "Scratch Notifier";
     else document.title = `(${msgCount}) Scratch Notifier`;
   } else {
     if(document.title.endsWith(".")) {
-      if(msgCount === 0) document.title = "Scratch Notifier";
+      if(msgCount == 0) document.title = "Scratch Notifier";
       else document.title = `(${msgCount}) Scratch Notifier`;
     } else {
-      if(msgCount === 0) document.title = "Scratch Notifier.";
+      if(msgCount == 0) document.title = "Scratch Notifier.";
       else document.title = `(${msgCount}) Scratch Notifier.`;
     }
   }
