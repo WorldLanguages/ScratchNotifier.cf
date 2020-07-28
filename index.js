@@ -130,12 +130,12 @@ function main() {
   document.body.style.display = "block";
   // Handle message counts & settings
   checkMainMessages();
-  setTimeout(checkMainMessages, 1500);
-  setInterval(checkMainMessages, 5000);
+  //setTimeout(checkMainMessages, 1500);
+  //setInterval(checkMainMessages, 5000);
   // Note: if you change this ↑ interval, please also take a look at the first line on checkMainMessages()
   checkAltMessages();
-  setTimeout(checkAltMessages, 3000);
-  setInterval(checkAltMessages, 15000);
+  //setTimeout(checkAltMessages, 3000);
+  //setInterval(checkAltMessages, 15000);
   settingsHTML = document.getElementById("notifier-settings").innerHTML;
   document.getElementById("notifier-settings").remove();
   // OneSignal tags
@@ -185,7 +185,9 @@ async function checkMainMessages(ignoreLastMainCheck) {
 
   if(msgCount !== null) /* Constant*/ var oldMsgCount = msgCount;
   else oldMsgCount = 10**10; // Message count will be smaller than 10^10, so we won't notify the user at startup
-  msgCount = await getMessageCount(scratchNotifier.mainUsername);
+  const getMsgCount = await getMessageCount(scratchNotifier.mainUsername);
+  msgCount = getMsgCount.count;
+  setTimeout(checkMainMessages, getMsgCount.timeout);
   if(msgCount !== null && oldMsgCount !== msgCount) {
     setFaviconAndTitle(true);
     document.getElementById("msg-count").innerText = msgCount;
@@ -249,7 +251,6 @@ function changeMainUsername(username) {
   setProfilePicAndUsername();
   msgCount = 10**10;
   checkMainMessages(true);
-  setTimeout(checkMainMessages, 1500);
 }
 
 // Handle UI ↓
@@ -395,7 +396,6 @@ function editAltUsernameTo(i, username){
   updateLocalStorage();
   parseAltAccounts();
   checkAltMessages();
-  setTimeout(checkAltMessages, 3000);
   toast({
     type: "success",
     title: "Changed username succesfully."
@@ -456,7 +456,6 @@ async function addAltAlert() {
       updateLocalStorage();
       parseAltAccounts();
       checkAltMessages();
-      setTimeout(checkAltMessages, 3000);
     }
     else
     toast({
@@ -472,7 +471,9 @@ function checkAltMessages() {
 
 async function checkSingleAltMessages(i) {
   const altUsername = scratchNotifier.altAccounts[i].username;
-  const msgCountAlt = await getMessageCount(altUsername);
+  const getMsgCount = await getMessageCount(altUsername);
+  const msgCountAlt = getMsgCount.count;
+  setTimeout(() => checkSingleAltMessages(i), getMsgCount.timeout);
   if(msgCountAlt === null) return;
   if(document.getElementsByClassName("alt")[i].innerText === altUsername) document.getElementsByClassName("alt-msg-count")[i].innerText = msgCountAlt;
   if(altAccountsMsgCounts[altUsername]) {
@@ -488,7 +489,7 @@ function getMessageCount(username) {
   return new Promise(async resolve => {
     // const res = await requestAPI(`users/${username}/messages/count`);
     const res = await requestAPI(`msgcount/${username}`);
-    resolve(res.count === -1 ? null : res.count);
+    resolve({count: res.count === -1 ? null : res.count, timeout: res.timeout});
   });
 }
 
