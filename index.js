@@ -185,7 +185,7 @@ async function checkMainMessages(ignoreLastMainCheck) {
 
   if(msgCount !== null) /* Constant*/ var oldMsgCount = msgCount;
   else oldMsgCount = 10**10; // Message count will be smaller than 10^10, so we won't notify the user at startup
-  const getMsgCount = await getMessageCount(scratchNotifier.mainUsername);
+  const getMsgCount = await getMessageCount(scratchNotifier.mainUsername, false);
   msgCount = getMsgCount.count;
   setTimeout(checkMainMessages, getMsgCount.timeout);
   if(msgCount !== null && oldMsgCount !== msgCount) {
@@ -471,7 +471,7 @@ function checkAltMessages() {
 
 async function checkSingleAltMessages(i) {
   const altUsername = scratchNotifier.altAccounts[i].username;
-  const getMsgCount = await getMessageCount(altUsername);
+  const getMsgCount = await getMessageCount(altUsername, true);
   const msgCountAlt = getMsgCount.count;
   setTimeout(() => checkSingleAltMessages(i), getMsgCount.timeout);
   if(msgCountAlt === null) return;
@@ -485,10 +485,10 @@ async function checkSingleAltMessages(i) {
 
 // General functions ↓
 
-function getMessageCount(username) {
+function getMessageCount(username, isAlt) {
   return new Promise(async resolve => {
     // const res = await requestAPI(`users/${username}/messages/count`);
-    const res = await requestAPI(`msgcount/${username}`);
+    const res = await requestAPI(`msgcount${isAlt ? "alt" : ""}/${username}`);
     resolve({count: res.count === -1 ? null : res.count, timeout: res.timeout});
   });
 }
@@ -538,6 +538,7 @@ async function requestAPI(endpoint) {
       //const req = /*corsIoWorks ? await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`) :*/ 
       let url;
       if(endpoint.startsWith("msgcount")) url = `https://api.scratchnotifier.cf/notifications/v2/${endpoint.slice(9)}?avoidcache=${Date.now()}`;
+      if(endpoint.startsWith("msgcountalt")) url = `https://api.scratchnotifier.cf/notifications/v2/${endpoint.slice(9)}/alt?avoidcache=${Date.now()}`;
       else url = `https://notifier.worldxlanguages.workers.dev/${endpoint}`;
       const req = await fetch(url);
       const res = await req.json();
