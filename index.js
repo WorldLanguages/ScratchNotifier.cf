@@ -180,7 +180,8 @@ function setBackground(calledFromSettings) {
 async function checkMainMessages(ignoreLastMainCheck) {
   // Avoid computer sleep causing many calls to this function at once, sending many notifications
   // ignoreLastMainCheck is true only when an alt is being switched with main
-  if(!ignoreLastMainCheck && (new Date().getTime() - lastMainCheck) < 5000) return;
+  // Commented for now since we're using api provided timeouts, not intervals
+  //if(!ignoreLastMainCheck && (new Date().getTime() - lastMainCheck) < 5000) return;
   lastMainCheck = new Date().getTime();
 
   if(msgCount !== null) /* Constant*/ var oldMsgCount = msgCount;
