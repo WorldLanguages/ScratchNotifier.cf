@@ -1,10 +1,13 @@
 (function(){
   // Used throughout the whole script
-  let domReady, slo, sli
+  let isDomReady, slo, sli, domReady;
+  domReady=new Promise(cb=>{
+    document.addEventListener("DOMContentLoaded", cb)
+  })
   // Used for events.
   window.scratchStatus={};
   window.scratchStatus.onUserChange=function onUserChange(){
-    if(domReady)
+    if(isDomReady)
       if(scratchNotifier.status.tokens[scratchNotifier.mainUsername]){
         sli.style.display="inline"
         slo.style.display="none"
@@ -27,10 +30,11 @@
     history.pushState("","",location.origin+location.pathname) // strip hash and query
     if(usp.get("status")=="success"&&usp.get("token")){
       scratchNotifier.status.tokens[scratchNotifier.mainUsername]=usp.get("token")
+      scratchNotifier.status.hasLoggedInEver=true;
       updateLocalStorage()
       window.scratchStatus.onUserChange()
     } else {
-      swal({text:"Looks like you denied permission to update your status. Please log in again."})
+      domReady.then(()=>swal({text:"Looks like you denied permission to update your status. Please log in again."}))
     }
   }
   
@@ -39,7 +43,7 @@
   }
   
   document.addEventListener("DOMContentLoaded", function(){
-    domReady=true;
+    isDomReady=true;
     // Set up elements
     // Only show the new feature indicator for first-time users from now until May 1st 2021
     document.querySelector("#status-new").style.display=(Date.now()<1619841600000 && !scratchNotifier.status.hasLoggedInEver)?"inline":"none";
