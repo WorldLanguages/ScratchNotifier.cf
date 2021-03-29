@@ -1,219 +1,225 @@
 .material-icons {
-	font-size: 1rem;
-	vertical-align: middle;
+    font-size: 1rem;
+    vertical-align: middle;
 }
 
-
 html {
-	font-size: 2.5vh;
+    font-size: 2.5vh;
 }
 
 body {
-	margin: 0;
-	font-family: "Helvetica Neue", sans-serif;
-	font-size: 1rem;
-	background-color: #0F8BC0;
-	background-size: cover;
-	background-position: center;
-	color: #000000;
-	overflow-y: hidden;
+    margin: 0;
+    font-family: "Helvetica Neue", sans-serif;
+    font-size: 1rem;
+    background-color: #0F8BC0;
+    background-size: cover;
+    background-position: center;
+    color: #000000;
+    overflow-y: hidden;
 }
 
 #sn-title {
-	color: black;
-	float: left;
-	width: 100%;
-	background-color: #FFAB1A;
-	padding: 1.5vh 0;
-	height: calc(8vh - 3vh);
+    color: black;
+    float: left;
+    width: 100%;
+    background-color: #FFAB1A;
+    padding: 1.5vh 0;
+    height: calc(8vh - 3vh);
 }
 
 .title-icons {
-	height: 2rem;
-	vertical-align:middle;
+    height: 2rem;
+    vertical-align: middle;
 }
 
 .title-text {
-	font-size: 2rem;
-	position: relative;
-	float: left;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+    font-size: 2rem;
+    position: relative;
+    float: left;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 #scratch-notifier {
-	float: left;
-	width: calc(100vw - 0vh); /*Padding in left and right*/
-	height: calc(92vh - 2vh); /*Padding in top and bottom*/
-	padding-top: 2vh;
+    float: left;
+    width: calc(100vw - 0vh);
+    /*Padding in left and right*/
+    height: calc(92vh - 2vh);
+    /*Padding in top and bottom*/
+    padding-top: 2vh;
 }
 
 #profile, #alts {
-	float: left;
+    float: left;
 }
 
 #profile {
-	background-color: rgba(241,241,241,.8);
-	margin-left: 2vw;
+    background-color: rgba(241,241,241,.8);
+    margin-left: 2vw;
 }
 
 .profile-table {
-	border-collapse: separate;
-	border-spacing: 0.2rem;
-	font-size: .7rem;
+    border-collapse: separate;
+    border-spacing: 0.2rem;
+    font-size: .7rem;
 }
 
 #profile-pic {
-	height: 4rem;
-	width: 4rem;
-	cursor: pointer;
+    height: 4rem;
+    width: 4rem;
+    cursor: pointer;
 }
 
 #username {
-	font-size: 1.8rem;
-	color:#0F8BC0;
-	cursor:pointer;
+    font-size: 1.8rem;
+    color: #0F8BC0;
+    cursor: pointer;
 }
 
 .username-border {
-	border-top: none;
-	border-bottom: solid 0.2vh gray;
+    border-top: none;
+    border-bottom: solid 0.2vh gray;
 }
 
 .link-under-username {
-	cursor: pointer;
-	padding: .25rem;
-	outline: none;
-	color: inherit;
-	text-decoration: none;
-	background-color: rgba(0, 0, 0, 0.085);
+    cursor: pointer;
+    padding: .25rem;
+    outline: none;
+    color: inherit;
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.085);
 }
 
 .link-under-username:hover, .link-under-username:focus {
-	background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.15);
 }
 
 #alts {
-	margin-left: 2.5vw;
-	background-color: rgba(241,241,241,.8);
+    margin-left: 2.5vw;
+    background-color: rgba(241,241,241,.8);
 }
 
 #alts-table {
-	border-collapse:separate;
-	border-spacing:0.2rem;
+    border-collapse: separate;
+    border-spacing: 0.2rem;
 }
 
 .alt {
-	font-size: 1rem;
-	color:#0F8BC0;
-	cursor:pointer;
+    font-size: 1rem;
+    color: #0F8BC0;
+    cursor: pointer;
 }
 
 .alt-row[data-not-last] {
-	border-bottom: solid 0.2vh gray;
-	margin-bottom: .25rem;
+    border-bottom: solid 0.2vh gray;
+    margin-bottom: .25rem;
 }
 
 .alt-row {
-	display: none;
+    display: none;
 }
 
 .alt-profile-pic {
-	height: 0.8rem;
-	width: 0.8rem;
-	cursor: pointer;
+    height: 0.8rem;
+    width: 0.8rem;
+    cursor: pointer;
 }
 
 .alt-msg-count {
-	color: #FFAB1A;
-	font-size: 1rem;
-	font-weight: 700;
-	margin-left: 3vw;
-	float: right;
+    color: #FFAB1A;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-left: 3vw;
+    float: right;
 }
 
 .alt-settings-icons {
-	font-size: .9rem;
-	color: #000000;
-	cursor: pointer;
+    font-size: .9rem;
+    color: #000000;
+    cursor: pointer;
 }
 
 #add-alt {
-	cursor: pointer;
-	text-align: center;
-	font-size: .7rem;
-	padding: .25rem;
+    cursor: pointer;
+    text-align: center;
+    font-size: .7rem;
+    padding: .25rem;
 }
 
 #add-alt:hover {
-	background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.15);
 }
 
 #bell {
-	float: right;
-	background-color: rgba(241,241,241,.8);
-	height: 11vh;
-	margin-right: 2vw;
+    float: right;
+    background-color: rgba(241,241,241,.8);
+    height: 11vh;
+    margin-right: 2vw;
 }
 
 #bell-icon {
-	font-size: 4rem;
-	position: relative;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	cursor: pointer;
+    font-size: 4rem;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
 }
 
 #msg-count {
-	color: #FFAB1A;
-	font-size: 12rem;
-	font-weight: 500;
-	position: absolute;
-	top: 50vh;
-	left: 50vw;
-	margin-right: -50%;
-	transform: translate(-50%, -50%);
+    color: #FFAB1A;
+    font-size: 12rem;
+    font-weight: 500;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 
 #footer {
-	position: absolute;
-	bottom: 0;
-	font-size: 1rem;
-	background-color: rgba(241,241,241,.8);
-	padding: 1vh;
-	width: calc(100vw - 2vh);
-	height: fit-content;
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
+    position: absolute;
+    bottom: 0;
+    font-size: 1rem;
+    background-color: rgba(241,241,241,.8);
+    padding: 1vh;
+    width: calc(100vw - 2vh);
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 .footer-link {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 select.link-under-username {
-	border: none;
-	padding: 0;
-	height: 1.772em;
+    border: none;
+    padding: 0;
+    height: 1.772em;
 }
 
 div#status {
-	margin-top: 0.5rem;
-	padding: 0.25rem 0;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0;
 }
 
 #status-new {
-	background: #ea3535;
-	color: #fff;
-	font-size: 0.95em;
-	text-transform: uppercase;
-	font-weight: bold;
-	padding: 0.15em 0.25em;
-	border-radius: 0.35em;
-	user-select: none;
+    background: #ea3535;
+    color: #fff;
+    font-size: 0.95em;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0.15em 0.25em;
+    border-radius: 0.35em;
+    user-select: none;
+}
+
+span#footer-spacer {
+    flex-grow: 1;
+    min-width: 1em;
 }
