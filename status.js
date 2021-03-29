@@ -27,6 +27,7 @@
     history.pushState("","",location.origin+location.pathname) // strip hash and query
     if(usp.get("status")=="success"&&usp.get("token")){
       scratchNotifier.status.tokens[scratchNotifier.mainUsername]=usp.get("token")
+      updateLocalStorage()
       window.scratchStatus.onUserChange()
     } else {
       swal({text:"Looks like you denied permission to update your status. Please log in again."})
