@@ -8,8 +8,8 @@
   <meta charset="utf-8">
   <script>
     if(!localStorage.getItem("scratchNotifier") && !localStorage.getItem("username")) {
-    window.location.href = "./about.html";
-  }
+      window.location.href = "./about.html";
+    }
   </script>
   <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
   <script src="minjs/sweetalert2.all.min.js"></script>
@@ -62,7 +62,7 @@
                 Settings</a>
               <div id="status">
                 <span class="status-logged-out" style="display:none;">
-                  <i class="material-icons" style="display:none;" id="status-new">fiber_new</i> <a href="#" class="link-under-username">Login</a> to show status</a>
+                  <span style="display: none;" id="status-new">New</span> <a href="#" class="link-under-username">Login</a> to show status
                 </span>
                 <span class="status-logged-in" style="display:none;">
                   <label for="status-menu">Status:</label>
