@@ -22,7 +22,6 @@
   function login(){
     location.href="https://scratchstatus-api.glitch.me/v1/auth/" + encodeURIComponent(scratchNotifier.mainUsername) + "/" + encodeURIComponent(location.origin+location.pathname+"?statusLogin=1");
   }
-  document.querySelector("#status-login").addEventListener("click", login);
   document.addEventListener("DOMContentLoaded", function(){
     domReady=true;
     // Set up elements
@@ -30,6 +29,7 @@
     document.querySelector("#status-new").style.display=(Date.now()<1619841600000 && !scratchNotifier.status.hasLoggedInEver)?"inline":"none";
     slo = document.querySelector("#status-logged-out")
     sli = document.querySelector("#status-logged-in")
+    document.querySelector("#status-login").addEventListener("click", login);
     window.scratchStatus.onUserChange()
   })
 })();
