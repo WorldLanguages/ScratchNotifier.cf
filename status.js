@@ -3,10 +3,10 @@
   window.scratchStatus={};
   // Initialize scratchNotifier.status
   scratchNotifier.status=scratchNotifier.status||{}
-  scratchNotifier.status.tokens=scratchNotifier.status.tokens||null;
+  scratchNotifier.status.tokens=scratchNotifier.status.tokens||{};
   scratchNotifier.status.hasLoggedInEver=scratchNotifier.status.hasLoggedInEver||false;
   scratchNotifier.status.invisible=scratchNotifier.status.invisible||false;
-  
+  updateLocalStorage()
   window.scratchStatus.onUserChange=function onUserChange(){
     if(scratchNotifier.status.tokens[scratchNotifier.mainUsername]){
       slo.style.display="inline"
