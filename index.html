@@ -61,11 +61,20 @@
               <a class="link-under-username" onclick="changeUsernameAlert();"><i class="material-icons">edit</i> Change username</a> | <a class="link-under-username" onclick="settings();"><i class="material-icons">settings</i>
                 Settings</a>
               <div id="status">
-                <label for="status-menu">Status:</label>
-                <select class="link-under-username" id="status-menu">
-                  <option value="1">🟢 Online</option>
-                  <option value="0">⚫ Invisible</option>
-                </select>
+                <span class="status-logged-out" style="display:none;">
+                  <i class="material-icons" style="display:none;" id="status-new">fiber_new</i> <a href="#" class="link-under-username">Login</a> to show status</a>
+                </span>
+                <span class="status-logged-in" style="display:none;">
+                  <label for="status-menu">Status:</label>
+                  <select class="link-under-username" id="status-menu">
+                    <option value="1">🟢 Online</option>
+                    <option value="0">⚫ Invisible</option>
+                  </select>
+                  <a class="link-under-username" id="share-status">
+                    <i class="material-icons">share</i>
+                  </a>
+                </span>
+                &nbsp;
               </div>
             </td>
           </tr>
