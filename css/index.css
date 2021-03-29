@@ -201,6 +201,8 @@ select.link-under-username {
     border: none;
     padding: 0;
     height: 1.772em;
+    font: inherit;
+    color: inherit;
 }
 
 div#status {
