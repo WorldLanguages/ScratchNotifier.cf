@@ -85,6 +85,9 @@ body {
 	cursor: pointer;
 	padding: .25rem;
 	outline: none;
+	color: inherit;
+	text-decoration: none;
+	background-color: rgba(0, 0, 0, 0.05);
 }
 
 .link-under-username:hover, .link-under-username:focus {
@@ -208,5 +211,17 @@ select.link-under-username {
 }
 
 div#status {
-	margin-top: 0.25rem;
+	margin-top: 0.5rem;
+	padding: 0.25rem 0;
+}
+
+#status-new {
+	background: #ea3535;
+	color: #fff;
+	font-size: 0.95em;
+	text-transform: uppercase;
+	font-weight: bold;
+	padding: 0.15em 0.25em;
+	border-radius: 0.35em;
+	user-select: none;
 }
