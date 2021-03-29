@@ -81,6 +81,7 @@
         scratchNotifier.status.invisible=statusMenu.value=="0";
         updateLocalStorage()
       })
+      document.querySelector("#status-logout").addEventListener("click", logout);
       document.querySelector("#status-login").addEventListener("click", login);
       cb()
       window.scratchStatus.onUserChange()
