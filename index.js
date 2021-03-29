@@ -101,7 +101,7 @@ if(localStorage.getItem("scratchNotifier")) {
     checkForUndefinedKeys(); // This also saves local storage
     notification("🎉 Scratch Notifier v3 is here!", "Scratch Notifier was completely remade to be way better! Click to take a look at it, and feel free to use the \"Send Feedback\" button!", "images/logo.png", () => window.focus());
   } else
-  window.location = "/about.html"; // Shouldn't happen
+  window.location = "./about.html"; // Shouldn't happen
 }
 
 function checkForUndefinedKeys() {
