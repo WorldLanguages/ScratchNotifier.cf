@@ -84,9 +84,10 @@ body {
 .link-under-username {
 	cursor: pointer;
 	padding: .25rem;
+	outline: none;
 }
 
-.link-under-username:hover {
+.link-under-username:hover, .link-under-username:focus {
 	background-color: rgba(0, 0, 0, 0.15);
 }
 
@@ -197,4 +198,15 @@ body {
 
 #footer-right {
 	float: right;
+}
+
+select.link-under-username {
+	border: none;
+	background: transparent;
+	padding: 0;
+	height: 1.772em;
+}
+
+div#status {
+	margin-top: 0.25rem;
 }
