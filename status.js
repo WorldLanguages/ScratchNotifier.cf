@@ -19,6 +19,10 @@
         sli.style.display="none"
       }
   }
+  function login(){
+    location.href="https://scratchstatus-api.glitch.me/v1/auth/" + encodeURIComponent(scratchNotifier.mainUsername) + "/" + encodeURIComponent(location.origin+location.pathname+"?statusLogin=1");
+  }
+  document.querySelector("#status-login").addEventListener("click", login);
   document.addEventListener("DOMContentLoaded", function(){
     domReady=true;
     // Set up elements
