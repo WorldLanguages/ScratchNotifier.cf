@@ -8,7 +8,7 @@
   <meta charset="utf-8">
   <script>
     if(!localStorage.getItem("scratchNotifier") && !localStorage.getItem("username")) {
-    window.location.href = "/about.html";
+    window.location.href = "./about.html";
   }
   </script>
   <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
@@ -47,7 +47,7 @@
 
 <body onload="try{main();}catch(err){alert('Sorry, something went wrong:\n' + err);}" style="display: none;">
   <div id="sn-title">
-    <div class="title-text"><img src="/images/logo.png" class="title-icons"> Scratch Notifier</div>
+    <div class="title-text"><img src="./images/logo.png" class="title-icons"> Scratch Notifier</div>
   </div>
   <div id="scratch-notifier" ondblclick="setTimeout(function(){if(doubleClick) {window.getSelection().removeAllRanges(); openScratch('/messages');} else doubleClick = true;}, 50);">
     <div id="profile" ondblclick="doubleClick = false;">
