@@ -1,11 +1,11 @@
 (function(){
   // Used throughout the whole script
   const API_ORIGIN = "https://scratchstatus-api.glitch.me"
-  let isDomReady, slo, sli, statusMenu, domReady, cip;
+  let isDomReady, slo, sli, statusMenu, domReady, cip, newCallout;
   // Used for events.
   window.scratchStatus={};
   window.scratchStatus.onUserChange=function onUserChange(){
-    if(isDomReady)
+    if(isDomReady){
       if(scratchNotifier.status.tokens[scratchNotifier.mainUsername]){
         sli.style.display="inline"
         slo.style.display="none"
@@ -13,6 +13,8 @@
         slo.style.display="inline"
         sli.style.display="none"
       }
+      newCallout.style.display=(Date.now()<1619841600000 && !scratchNotifier.status.hasLoggedInEver)?"inline":"none";
+    }
     if(scratchNotifier.status.tokens[scratchNotifier.mainUsername]) startPing()
   }
   
@@ -72,10 +74,10 @@
       isDomReady=true;
       // Set up elements
       // Only show the new feature indicator for first-time users from now until May 1st 2021
-      document.querySelector("#status-new").style.display=(Date.now()<1619841600000 && !scratchNotifier.status.hasLoggedInEver)?"inline":"none";
       slo = document.querySelector("#status-logged-out")
       sli = document.querySelector("#status-logged-in")
       statusMenu = document.querySelector("#status-menu")
+      newCallout = document.querySelector("#status-new")
       statusMenu.selectedIndex=scratchNotifier.status.invisible?1:0;
       statusMenu.addEventListener("change", function (){
         scratchNotifier.status.invisible=statusMenu.value=="0";
