@@ -65,5 +65,5 @@ function setUsername(username) {
   var scratchNotifier = {};
   scratchNotifier.mainUsername = username;
   localStorage.setItem("scratchNotifier", JSON.stringify(scratchNotifier));
-  window.location.href = "/";
+  window.location.href = "./";
 }
