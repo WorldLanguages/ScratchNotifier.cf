@@ -40,7 +40,7 @@
   function startPing() {
     if (cip) clearInterval(cip);
     async function ping() {
-      if (token && ping) {
+      if (scratchNotifier.status.tokens[scratchNotifier.mainUsername] && !scratchNotifier.status.invisible) {
         let r = await fetch(API_ORIGIN+"/v1/checkin",
           {
             method: "POST",
