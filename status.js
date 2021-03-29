@@ -12,11 +12,11 @@
   window.scratchStatus.onUserChange=function onUserChange(){
     if(domReady)
       if(scratchNotifier.status.tokens[scratchNotifier.mainUsername]){
-        slo.style.display="inline"
-        sli.style.display="none"
-      } else {
         sli.style.display="inline"
         slo.style.display="none"
+      } else {
+        slo.style.display="inline"
+        sli.style.display="none"
       }
   }
   document.addEventListener("DOMContentLoaded", function(){
