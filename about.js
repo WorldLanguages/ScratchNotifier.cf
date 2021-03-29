@@ -53,7 +53,8 @@ async function requestAPI(endpoint) {
       //const req = /*corsIoWorks ? await fetch(`https://cors.io/?https://api.scratch.mit.edu/${endpoint}`) :*/ 
       let url;
       if(endpoint.startsWith("msgcount")) url = `https://api.scratchnotifier.cf/notifications/v1/${endpoint.slice(9)}`;
-      else url = `https://notifier.worldxlanguages.workers.dev/${endpoint}`;
+      else if(location.hash.indexOf("noproxy")==-1) url = `https://notifier.worldxlanguages.workers.dev/${endpoint}`;
+      else url = `https://api.scratch.mit.edu/${endpoint}`;
       const req = await fetch(url);
       const res = await req.json();
       resolve(res);
