@@ -259,6 +259,9 @@ function changeMainUsername(username) {
 function setProfilePicAndUsername() {
   loadProfilePicture(scratchNotifier.mainUsername, document.getElementById("profile-pic"));
   document.getElementById("username").innerText = scratchNotifier.mainUsername;
+  if(window.scratchStatus && typeof window.scratchStatus.onUserChange == "function"){
+    window.scratchStatus.onUserChange()
+  }
 }
 
 function settings() {
