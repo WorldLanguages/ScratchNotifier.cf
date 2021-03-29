@@ -62,10 +62,10 @@
               <a class="link-under-username" onclick="changeUsernameAlert();"><i class="material-icons">edit</i> Change username</a> | <a class="link-under-username" onclick="settings();"><i class="material-icons">settings</i>
                 Settings</a>
               <div id="status">
-                <span class="status-logged-out" style="display:none;">
+                <span id="status-logged-out" style="display:none;">
                   <span style="display: none;" id="status-new">New</span> <a href="#" class="link-under-username" id="status-login">Login</a> to show status
                 </span>
-                <span class="status-logged-in" style="display:none;">
+                <span id="status-logged-in" style="display:none;">
                   <label for="status-menu">Status:</label>
                   <select class="link-under-username" id="status-menu">
                     <option value="1">🟢 Online</option>
