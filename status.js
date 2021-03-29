@@ -49,7 +49,7 @@
         });
         if (r.status == 403) {
           logout()
-          M.Modal.getInstance(document.querySelector("#loggedout")).open()
+          swal({text:"Your session expired. Please log in again."})
         }
       }
     }
@@ -59,6 +59,12 @@
   
   function login(){
     location.href=API_ORIGIN+"/v1/auth/" + encodeURIComponent(scratchNotifier.mainUsername) + "/" + encodeURIComponent(location.origin+location.pathname+"?statusLogin=1");
+  }
+  
+  function logout(){
+    delete scratchNotifier.status.tokens[scratchNotifier.mainUsername]
+    updateLocalStorage()
+    window.scratchStatus.onUserChange()
   }
   
   domReady=new Promise(cb=>{
