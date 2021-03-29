@@ -183,24 +183,17 @@ body {
 	font-size: 1rem;
 	background-color: rgba(241,241,241,.8);
 	padding: 1vh;
-	height: calc(5vh - 2vh);
 	width: calc(100vw - 2vh);
+	height: fit-content;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
 }
 
 .footer-link {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
-}
-
-#footer-content {
-	position: relative;
-	top: 50%;
-	transform: translateY(-50%);
-}
-
-#footer-right {
-	float: right;
 }
 
 select.link-under-username {
