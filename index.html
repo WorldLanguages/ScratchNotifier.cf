@@ -56,14 +56,23 @@
         <tbody>
           <tr>
             <td>
-              <img id="profile-pic" title="Open profile in new tab" alt="" onclick="window.open('https://scratch.mit.edu/users/' + document.getElementById('username').innerText);"></td>
-            <td><a id="username" title="Open profile in new tab" onclick="window.open('https://scratch.mit.edu/users/' + this.innerText);">username</a>
+              <img id="profile-pic" title="Open profile in new tab" alt="" onclick="window.open('https://scratch.mit.edu/users/' + document.getElementById('username').innerText);">
+            </td>
+            <td>
+              <a id="username" title="Open profile in new tab" onclick="window.open('https://scratch.mit.edu/users/' + this.innerText);">username</a>
               <hr class="username-border">
-              <a class="link-under-username" onclick="changeUsernameAlert();"><i class="material-icons">edit</i> Change username</a> <a class="link-under-username" onclick="settings();"><i class="material-icons">settings</i>
-                Settings</a>
+              <a class="link-under-username" href="javascript:void changeUsernameAlert();">
+                <i class="material-icons">edit</i>
+                Change username
+              </a>
+              <a class="link-under-username" href="javascript:void settings();">
+                <i class="material-icons">settings</i>
+                Settings
+              </a>
               <div id="status">
                 <span id="status-logged-out" style="display:none;">
-                  <span style="display: none;" id="status-new">New</span> <a href="#" class="link-under-username" id="status-login">Login</a> to show status
+                  <span style="display: none;" id="status-new">New</span>
+                  <a href="javascript:void 0;" class="link-under-username" id="status-login">Login</a> to show status
                 </span>
                 <span id="status-logged-in" style="display:none;">
                   <label for="status-menu">Status:</label>
