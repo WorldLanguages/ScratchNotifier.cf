@@ -192,7 +192,7 @@ async function checkMainMessages(ignoreLastMainCheck) {
   if(msgCount !== null && oldMsgCount !== msgCount) {
     setFaviconAndTitle(true);
     document.getElementById("msg-count").innerText = msgCount;
-    if(scratchNotifier.globalNotifications && !noNotifSession && msgCount > oldMsgCount) notification(`${msgCount} unread message${s(msgCount)}`, "Click to open messages", "/images/logo.png", () => openScratch('/messages'));
+    if(scratchNotifier.globalNotifications && !noNotifSession && msgCount > oldMsgCount) notification(`${msgCount} unread message${s(msgCount)}`, "Click to open messages", "./images/logo.png", () => openScratch('/messages'));
   } else setFaviconAndTitle(false);
 }
 
@@ -540,7 +540,8 @@ async function requestAPI(endpoint) {
       let url;
       if(endpoint.startsWith("msgcountalt")) url = `https://api.scratchnotifier.cf/user/${endpoint.slice(12)}/notifications/alt?avoidcache=${Date.now()}`;
       else if(endpoint.startsWith("msgcount")) url = `https://api.scratchnotifier.cf/user/${endpoint.slice(9)}/notifications?avoidcache=${Date.now()}`;
-      else url = `https://notifier.worldxlanguages.workers.dev/${endpoint}`;
+      else if(location.hash.indexOf("noproxy")==-1) url = `https://notifier.worldxlanguages.workers.dev/${endpoint}`;
+      else url = `https://api.scratch.mit.edu/${endpoint}`;
       const req = await fetch(url);
       const res = await req.json();
       resolve(res);
