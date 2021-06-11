@@ -30,6 +30,8 @@
   if(usp.get("statusLogin")){
     history.pushState("","",location.origin+location.pathname) // strip hash and query
     if(usp.get("status")=="success"&&usp.get("token")){
+      let u=JSON.parse(atob(usp.get("token").split(".")[1])).sub;
+      if(u.toLowerCase()!=scratchNotifier.mainUsername.toLowerCase()) return swal({text:"You logged in as "+u+", not "+scratchNotifier.mainUsername+". Please make sure you are logged in to Scratch as "+scratchNotifier.mainUsername+" and log in again."})
       scratchNotifier.status.tokens[scratchNotifier.mainUsername]=usp.get("token")
       scratchNotifier.status.hasLoggedInEver=true;
       updateLocalStorage()
@@ -60,7 +62,7 @@
   }
   
   function login(){
-    location.href=API_ORIGIN+"/v1/auth/" + encodeURIComponent(scratchNotifier.mainUsername) + "/" + encodeURIComponent(location.origin+location.pathname+"?statusLogin=1");
+    location.href=API_ORIGIN+"/v2/auth/" + encodeURIComponent(location.origin+location.pathname+"?statusLogin=1");
   }
   
   function logout(){
