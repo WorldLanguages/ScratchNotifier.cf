@@ -71,6 +71,11 @@
     window.scratchStatus.onUserChange()
   }
   
+  function share(){
+    let link="https://scratchstatus.glitch.me/user/#!/"+encodeURIComponent(scratchNotifier.mainUsername);
+    swal({title:"Share Status", html:`Your status is available at <a href="${link}" target="_blank">${link}</a>`})
+  }
+  
   domReady=new Promise(cb=>{
     document.addEventListener("DOMContentLoaded", function(){
       isDomReady=true;
@@ -87,6 +92,7 @@
       })
       document.querySelector("#status-logout").addEventListener("click", logout);
       document.querySelector("#status-login").addEventListener("click", login);
+      document.querySelector("#status-share").addEventListener("click", share);
       cb()
       window.scratchStatus.onUserChange()
     })
