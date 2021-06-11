@@ -8,12 +8,13 @@
   <meta charset="utf-8">
   <script>
     if(!localStorage.getItem("scratchNotifier") && !localStorage.getItem("username")) {
-    window.location.href = "/about.html";
-  }
+      window.location.href = "./about.html";
+    }
   </script>
   <link rel="shortcut icon" href="images/logo.png" type="image/x-icon">
   <script src="minjs/sweetalert2.all.min.js"></script>
   <script src="index.js"></script>
+  <script src="status.js"></script>
   <script src="minjs/odometer.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script async src="minjs/favico-0.3.10.min.js"></script>
@@ -47,7 +48,7 @@
 
 <body onload="try{main();}catch(err){alert('Sorry, something went wrong:\n' + err);}" style="display: none;">
   <div id="sn-title">
-    <div class="title-text"><img src="/images/logo.png" class="title-icons"> Scratch Notifier</div>
+    <div class="title-text"><img src="./images/logo.png" class="title-icons"> Scratch Notifier</div>
   </div>
   <div id="scratch-notifier" ondblclick="setTimeout(function(){if(doubleClick) {window.getSelection().removeAllRanges(); openScratch('/messages');} else doubleClick = true;}, 50);">
     <div id="profile" ondblclick="doubleClick = false;">
@@ -55,11 +56,36 @@
         <tbody>
           <tr>
             <td>
-              <img id="profile-pic" title="Open profile in new tab" alt="" onclick="window.open('https://scratch.mit.edu/users/' + document.getElementById('username').innerText);"></td>
-            <td><a id="username" title="Open profile in new tab" onclick="window.open('https://scratch.mit.edu/users/' + this.innerText);">username</a>
+              <img id="profile-pic" title="Open profile in new tab" alt="" onclick="window.open('https://scratch.mit.edu/users/' + document.getElementById('username').innerText);">
+            </td>
+            <td>
+              <a id="username" title="Open profile in new tab" onclick="window.open('https://scratch.mit.edu/users/' + this.innerText);">username</a>
               <hr class="username-border">
-              <a class="link-under-username" onclick="changeUsernameAlert();"><i class="material-icons">edit</i> Change username</a> | <a class="link-under-username" onclick="settings();"><i class="material-icons">settings</i>
-                Settings</a>
+              <a class="link-under-username" href="javascript:void changeUsernameAlert();">
+                <i class="material-icons">edit</i>
+                Change username
+              </a>&nbsp;<a class="link-under-username" href="javascript:void settings();">
+                <i class="material-icons">settings</i>
+                Settings
+              </a>
+              <div id="status">
+                <span id="status-logged-out" style="display:none;">
+                  <span style="display: none;" id="status-new">New</span>
+                  <a href="javascript:void 0;" class="link-under-username" id="status-login">Login</a> to show status
+                </span>
+                <span id="status-logged-in" style="display:none;">
+                  <label for="status-menu">Status:</label>
+                  <select class="link-under-username" id="status-menu">
+                    <option value="1">🟢 Online</option>
+                    <option value="0">⚫ Invisible</option>
+                  </select>&nbsp;<a href="javascript:void 0;" class="link-under-username" id="status-share">
+                    Share
+                  </a>&nbsp;<a href="javascript:void 0;" class="link-under-username" id="status-logout">
+                    Log Out
+                  </a>
+                </span>
+                &nbsp;
+              </div>
             </td>
           </tr>
         </tbody>
@@ -112,12 +138,10 @@
     <div id="bell" ondblclick="doubleClick = false; window.getSelection().removeAllRanges();" title="Enable/disable all notifications (new messages and online friends)"><i class="material-icons" id="bell-icon" onclick="bellClickActions[this.innerText]();">notifications_on</i></div>
     <div id="msg-count" class="odometer">0</div>
     <div id="footer" ondblclick="doubleClick = false;">
-      <div id="footer-content">
-        <span id="footer-left">Made by <a class="footer-link" href="https://scratch.mit.edu/users/World_Languages/" target="_blank">World <img style="height:1rem;" src="https://cdn2.scratch.mit.edu/get_image/user/4648559_100x100.png">
-            Languages</a> with ❤️ | Message counts provided by <a href="https://hampton.pw" target="_blank" class="footer-link"><img style="height:1rem;" src="https://cdn2.scratch.mit.edu/get_image/user/9565102_100x100.png">Hampton</a></span>
-        <span id="footer-right"><a class="footer-link" href="https://github.com/WorldLanguages/ScratchNotifier.cf" target="_blank">GitHub repo</a> | <a class="footer-link" href="https://scratch.mit.edu/users/World_Languages/#comments" target="_blank">Send feedback</a></span>
+        <span>Made by <a class="footer-link" href="https://scratch.mit.edu/users/World_Languages/" target="_blank">World <img style="height:1rem;" src="https://cdn2.scratch.mit.edu/get_image/user/4648559_100x100.png">
+            Languages</a> with ❤️ | Message counts provided by <a href="https://hampton.pw" target="_blank" class="footer-link"><img style="height:1rem;" src="https://cdn2.scratch.mit.edu/get_image/user/9565102_100x100.png">Hampton</a> | Status provided by <a href="https://easrng.us.to/" target="_blank" class="footer-link"><img style="height:1rem;" src="https://owo.whats-th.is/741yWSB.png"> easrng</a>
+        </span><span id="footer-spacer"></span><span><a class="footer-link" href="https://github.com/WorldLanguages/ScratchNotifier.cf" target="_blank">GitHub repo</a> | <a class="footer-link" href="https://scratch.mit.edu/users/World_Languages/#comments" target="_blank">Send feedback</a></span>
       </div>
-    </div>
   </div>
 
   <div id="notifier-settings" style="display: none;">

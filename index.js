@@ -101,7 +101,7 @@ if(localStorage.getItem("scratchNotifier")) {
     checkForUndefinedKeys(); // This also saves local storage
     notification("🎉 Scratch Notifier v3 is here!", "Scratch Notifier was completely remade to be way better! Click to take a look at it, and feel free to use the \"Send Feedback\" button!", "images/logo.png", () => window.focus());
   } else
-  window.location = "/about.html"; // Shouldn't happen
+  window.location = "./about.html"; // Shouldn't happen
 }
 
 function checkForUndefinedKeys() {
@@ -156,12 +156,20 @@ function setBackground(calledFromSettings) {
       timer: null
     });
     const bgImg = new Image();
-    bgImg.src = 'https://picsum.photos/'+ screen.width +'/' + screen.height + '/?random';
+    bgImg.src = 'https://source.unsplash.com/featured/'+ screen.width * devicePixelRatio + 'x' + screen.height * devicePixelRatio + '?wallpapers';
     bgImg.onload = () => {
       document.body.style.backgroundImage = `url(${bgImg.src})`;
       document.getElementById("scratch-notifier").style.backgroundColor = "rgba(241,241,241,0.3)";
       swal.close();
       if(calledFromSettings) settings();
+    }
+    bgImg.onerror = () => {
+      swal.close();
+      swal.fire({
+        type:"error",
+        title:"Error",
+        text:"Could not load image"
+      })
     }
   }
   if(scratchNotifier.settings.background === "custom") {
@@ -192,7 +200,7 @@ async function checkMainMessages(ignoreLastMainCheck) {
   if(msgCount !== null && oldMsgCount !== msgCount) {
     setFaviconAndTitle(true);
     document.getElementById("msg-count").innerText = msgCount;
-    if(scratchNotifier.globalNotifications && !noNotifSession && msgCount > oldMsgCount) notification(`${msgCount} unread message${s(msgCount)}`, "Click to open messages", "/images/logo.png", () => openScratch('/messages'));
+    if(scratchNotifier.globalNotifications && !noNotifSession && msgCount > oldMsgCount) notification(`${msgCount} unread message${s(msgCount)}`, "Click to open messages", "./images/logo.png", () => openScratch('/messages'));
   } else setFaviconAndTitle(false);
 }
 
@@ -259,6 +267,9 @@ function changeMainUsername(username) {
 function setProfilePicAndUsername() {
   loadProfilePicture(scratchNotifier.mainUsername, document.getElementById("profile-pic"));
   document.getElementById("username").innerText = scratchNotifier.mainUsername;
+  if(window.scratchStatus && typeof window.scratchStatus.onUserChange == "function"){
+    window.scratchStatus.onUserChange()
+  }
 }
 
 function settings() {
@@ -366,7 +377,7 @@ async function overview() {
     text: "Please right click this tab and select \"Pin\". This will automatically open Scratch Notifier the next time you launch your browser, and will also help your browser know message notifications are important to you.",
     confirmButtonText: "I pinned it! Let's go!",
     allowOutsideClick: false,
-    imageUrl: "images/pintab.gif",
+    imageUrl: `images/pintab-${navigator.userAgent.includes("Firefox")?"firefox":"chrome"}.gif`,
     imageHeight: (screen.height/100)*33 // SweetAlert2 only accepts pixel values
   });
 }
@@ -540,7 +551,8 @@ async function requestAPI(endpoint) {
       let url;
       if(endpoint.startsWith("msgcountalt")) url = `https://api.scratchnotifier.cf/user/${endpoint.slice(12)}/notifications/alt?avoidcache=${Date.now()}`;
       else if(endpoint.startsWith("msgcount")) url = `https://api.scratchnotifier.cf/user/${endpoint.slice(9)}/notifications?avoidcache=${Date.now()}`;
-      else url = `https://notifier.worldxlanguages.workers.dev/${endpoint}`;
+      else if(location.hash.indexOf("noproxy")==-1) url = `https://notifier.worldxlanguages.workers.dev/${endpoint}`;
+      else url = `https://api.scratch.mit.edu/${endpoint}`;
       const req = await fetch(url);
       const res = await req.json();
       resolve(res);
