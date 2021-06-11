@@ -156,7 +156,7 @@ function setBackground(calledFromSettings) {
       timer: null
     });
     const bgImg = new Image();
-    bgImg.src = 'https://source.unsplash.com/'+ screen.width +'x' + screen.height;
+    bgImg.src = 'https://source.unsplash.com/featured/'+ screen.width + 'x' + screen.height + '?wallpapers';
     bgImg.onload = () => {
       document.body.style.backgroundImage = `url(${bgImg.src})`;
       document.getElementById("scratch-notifier").style.backgroundColor = "rgba(241,241,241,0.3)";
