@@ -369,7 +369,7 @@ async function overview() {
     text: "Please right click this tab and select \"Pin\". This will automatically open Scratch Notifier the next time you launch your browser, and will also help your browser know message notifications are important to you.",
     confirmButtonText: "I pinned it! Let's go!",
     allowOutsideClick: false,
-    imageUrl: "images/pintab.gif",
+    imageUrl: `images/pintab-${navigator.userAgent.includes("Firefox")?"firefox":"chrome"}.gif`,
     imageHeight: (screen.height/100)*33 // SweetAlert2 only accepts pixel values
   });
 }
