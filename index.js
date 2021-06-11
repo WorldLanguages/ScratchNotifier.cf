@@ -156,12 +156,20 @@ function setBackground(calledFromSettings) {
       timer: null
     });
     const bgImg = new Image();
-    bgImg.src = 'https://picsum.photos/'+ screen.width +'/' + screen.height + '/?random';
+    bgImg.src = 'https://source.unsplash.com/'+ screen.width +'x' + screen.height;
     bgImg.onload = () => {
       document.body.style.backgroundImage = `url(${bgImg.src})`;
       document.getElementById("scratch-notifier").style.backgroundColor = "rgba(241,241,241,0.3)";
       swal.close();
       if(calledFromSettings) settings();
+    }
+    bgImg.onerror = () => {
+      swal.close();
+      swal.fire({
+        type:"error",
+        title:"Error",
+        text:"Could not load image"
+      })
     }
   }
   if(scratchNotifier.settings.background === "custom") {
